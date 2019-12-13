@@ -1,12 +1,14 @@
 package dominoes;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Hand {
     int maxPipsPerEnd;
     ArrayList<Domino> dominoes;
     ArrayList<Integer> scores;
     int bestScore;
+    int uniquePipsCount;
 
     public Hand(int maxPipsPerEnd) {
         this.maxPipsPerEnd = maxPipsPerEnd;
@@ -16,6 +18,17 @@ public class Hand {
     }
 
     public void addDomino(Domino domino) {
+        this.dominoes.add(domino);
+        calculateHandScores();
+    }
+
+    public void addDominoes(List<Domino> dominoes) {
+        this.dominoes.addAll(dominoes);
+        calculateHandScores();
+    }
+
+    public void addDominoes(ArrayList<Domino> dominoes, Domino domino) {
+        this.dominoes.addAll(dominoes);
         this.dominoes.add(domino);
         calculateHandScores();
     }
@@ -52,7 +65,13 @@ public class Hand {
             pipsCounts[domino.end0Pips] += 1;
             pipsCounts[domino.end1Pips] += 1;
         }
+        int numUniquePipsCounts = 0;
+        for (int pipCount : pipsCounts) {
+            numUniquePipsCounts += pipCount != 0 ? 1 : 0;
+        }
+        this.uniquePipsCount = numUniquePipsCounts;
         return pipsCounts;
+
     }
 
 
