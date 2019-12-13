@@ -55,9 +55,6 @@ public class Main {
         if (dealerHand.bestScore == 11 && playerHand.bestScore < 11) {
             return true;
         }
-        if (playerHand.dominoes.size() == 3 && playerHand.uniquePipsCount == 2) {
-            return playerHand.bestScore != 10;
-        }
         int adjScore = playerHand.bestScore - playerHand.dominoes.size() + playerHand.uniquePipsCount;
         return adjScore <= 10;
     }
